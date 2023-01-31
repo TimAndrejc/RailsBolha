@@ -22,7 +22,7 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
-
+    @post.user = current_user
     respond_to do |format|
       if @post.save
         format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
@@ -34,8 +34,15 @@ class PostsController < ApplicationController
     end
   end
 
+  def authenticate_user!
+    unless @post.user == current_user
+     redirect_to root_path, notice: "You don't have permission to do that" 
+    end
+  end 
+  
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
+    @post.user = current_user
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to post_url(@post), notice: "Post was successfully updated." }
