@@ -1,0 +1,7 @@
+      <li class="nav-item">
+        <%= link_to 'Edit Profile', edit_user_registration_path,  class:  "nav-link #{ display_active_class( edit_user_registration_path)}" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Logout', destroy_user_session_path,  class: "nav-link", data: { turbo_method: :delete } %>
+      </li>
+     
