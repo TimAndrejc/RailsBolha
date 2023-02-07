@@ -2,3 +2,8 @@
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'custom.css';
 @import 'actiontext.css';
+
+
+trix-toolbar .trix-button-group--file-tools {
+  display: none;
+}
