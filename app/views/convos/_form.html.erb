@@ -1,0 +1,27 @@
+<%= form_with(model: convo) do |form| %>
+  <% if convo.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(convo.errors.count, "error") %> prohibited this convo from being saved:</h2>
+
+      <ul>
+        <% convo.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :post_id, style: "display: block" %>
+    <%= form.text_field :post_id %>
+  </div>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

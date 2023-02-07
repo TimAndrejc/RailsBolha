@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Convos</h1>
+
+<div id="convos">
+  <% @convos.each do |convo| %>
+    <%= render convo %>
+    <p>
+      <%= link_to "Show this convo", convo %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New convo", new_convo_path %>
