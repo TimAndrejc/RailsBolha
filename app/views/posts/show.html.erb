@@ -13,10 +13,16 @@
   </p>
 </div>
 
+<%if(current_user == @post.user)%>
+  <div>
+    <%= link_to "Edit this post", edit_post_path(@post) %> |
+    <%= link_to "Back to posts", posts_path %>
 
-<div>
-  <%= link_to "Edit this post", edit_post_path(@post) %> |
-  <%= link_to "Back to posts", posts_path %>
+    <%= button_to "Destroy this post", @post, method: :delete %>
+  </div>
+<%else%>
+  <div>
+    <%= link_to "Message this seller", @convo, data: { turbo_method: :post } %>
+  </div>
+<%end%>
 
-  <%= button_to "Destroy this post", @post, method: :delete %>
-</div>

@@ -10,6 +10,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    @convo = Convo.new
   end
 
   # GET /posts/new
