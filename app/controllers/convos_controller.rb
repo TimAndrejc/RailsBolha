@@ -18,9 +18,11 @@ class ConvosController < ApplicationController
 
   # POST /convos or /convos.json
   def create
-    @convo = Convo.new(convo_params)
-    @convo.post = Post.find(params[:post_id])
-    if(@convo.post.user != current_user)
+    @convo = Convo.find_by(post_id: params[:post_id], user: current_user)
+  
+    if !@convo
+      @convo = Convo.new
+      @convo.post_id = params[:post_id]
       @convo.user = current_user
       respond_to do |format|
         if @convo.save
@@ -32,9 +34,14 @@ class ConvosController < ApplicationController
         end
       end
     else
+      redirect_to convo_url(@convo), notice: "Convo already exists."
+    end
+  
+    if(@convo.post.user == current_user)
       redirect_to post_url(@convo.post), notice: "You can't buy your own post."
     end
   end
+  
 
 
   private

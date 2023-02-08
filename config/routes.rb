@@ -8,4 +8,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "posts#index"
   get '*path', to: 'errors#not_found'
+  Rails.application.routes.draw do
+    resources :convos, only: [:create]
+  end
+  
 end
