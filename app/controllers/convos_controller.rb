@@ -44,7 +44,7 @@ class ConvosController < ApplicationController
     end
   
     if(@convo.post.user == current_user)
-      redirect_to post_url(@convo.post), notice: "You can't buy your own post."
+      redirect_to post_url(@convo.post)
     end
   end
   
