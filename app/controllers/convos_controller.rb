@@ -40,7 +40,7 @@ class ConvosController < ApplicationController
         end
       end
     else
-      redirect_to convo_url(@convo), notice: "Convo already exists."
+      redirect_to convo_url(@convo)
     end
   
     if(@convo.post.user == current_user)
