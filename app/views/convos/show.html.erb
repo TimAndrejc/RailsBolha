@@ -60,7 +60,7 @@
           </li>
 <%else%>
            <li class="d-flex justify-content-between mb-4">
-            <img src="https://perpheads.com/data/avatars/o/6/6498.jpg?1586301375" alt="avatar"
+            <img src="https://i.redd.it/xq295i0sfw651.jpg" alt="avatar"
               class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
             <div class="card w-100">
               <div class="card-header d-flex justify-content-between p-3">
@@ -76,16 +76,17 @@
           </li>
 <%end%>
 <%end%>
-
+         <%= form_with(model: Message.new, local: true) do |form| %>
           <li class="bg-white mb-3">
             <div class="form-outline">
-            <%= form.text_field :body %>
+            <%= form.text_field :message, class: "form-control", rows: 5 %>
               <label class="form-label" for="textAreaExample2">Message</label>
             </div>
           </li>
-          <button type="button" class="btn btn-info btn-rounded float-end">Send</button>
+            <%= form.hidden_field :convo_id, value: @convo.id %>
+           <%= form.submit class: "btn btn-info btn-rounded float-end" %> 
         </ul>
-
+        <%end%>
       </div>
 
     </div>

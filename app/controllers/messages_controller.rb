@@ -6,14 +6,14 @@ class MessagesController < ApplicationController
     end
 
     def create
-        @message = Message.new
-        @convo = Convo.find(params[:convo_id])
-        @message.convo_id = params[:convo_id]
-        @message.user = current_user
-        @message.body = params[:message][:body]
+        @message = Message.new(message_params)
+        @convo = Convo.find(params[:message][:convo_id])
+        @message.convo_id = @convo.id
+        @message.user_id = current_user.id
+        @message.message = params[:message][:message]
         respond_to do |format|
         if @message.save
-            format.html { redirect_to convo_url(@convo), notice: "Convo was successfully created." }
+            format.html { redirect_to convo_url(@convo), notice: "Message sent" }
             format.json { render :show, status: :created, location: @convo }
         else
             format.html { render :new, status: :unprocessable_entity }
@@ -27,4 +27,7 @@ def authorize_user!
   unless @post.user == current_user
     redirect_to root_path, notice: "You don't have permissions to do that."
   end
+end
+def message_params
+  params.require(:message).permit( :message, :convo_id, :user_id)
 end
