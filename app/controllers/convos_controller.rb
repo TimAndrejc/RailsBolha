@@ -1,13 +1,19 @@
 class ConvosController < ApplicationController
-  before_action :set_convo, only: %i[ show edit update destroy ]
+  before_action :set_convo, only: %i[ show ]
+  before_action :authenticate_user!, except: %i[ index show ]
 
   # GET /convos or /convos.json
   def index
-    @convos = Convo.all
+    @convos = Convo.where(user: current_user).or(Convo.where(post_id: Post.where(user: current_user)))
   end
 
   # GET /convos/1 or /convos/1.json
   def show
+    @convos = Convo.where(user: current_user).or(Convo.where(post_id: Post.where(user: current_user)))
+    @convo = Convo.find(params[:id])
+    @post = @convo.post
+    @messages = @convo.messages
+    @message = Message.new
   end
 
   # GET /convos/new
@@ -55,3 +61,10 @@ class ConvosController < ApplicationController
       params.require(:convo).permit(:post_id, :user_id)
     end
 end
+private
+def authorize_user!
+  unless @post.user == current_user
+    redirect_to root_path, notice: "You don't have permissions to do that."
+  end
+end
+
