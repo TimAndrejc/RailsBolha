@@ -2,7 +2,7 @@
   <div class="container py-5">
 
     <div class="row">
-
+    
       <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
 
         <h5 class="font-weight-bold mb-3 text-center text-lg-start">Pogovori</h5>
@@ -37,7 +37,10 @@
       </div>
 <div class="col-md-6 col-lg-7 col-xl-8">
 
-<ul class="list-unstyled">
+<ul class="list-unstyled" style ="
+                height: 80vh;
+                overflow: auto;
+                text-align:justify;">
          
 <h5 class="font-weight-bold mb-3 text-center text-lg-start"><%= @convo.post.title %></h5>
 <% @messages.each do |message| %>
@@ -77,8 +80,8 @@
 <%end%>
 <%end%>
          <%= form_with(model: Message.new, local: true) do |form| %>
-          <li class="bg-white mb-3">
-            <div class="form-outline">
+          <li class="bg-white mb-3" >
+            <div class="form-outline" id = "message">
             <%= form.text_field :message, class: "form-control", rows: 5 %>
               <label class="form-label" for="textAreaExample2">Message</label>
             </div>

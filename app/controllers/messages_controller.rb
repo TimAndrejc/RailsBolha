@@ -13,8 +13,9 @@ class MessagesController < ApplicationController
         @message.message = params[:message][:message]
         respond_to do |format|
         if @message.save
-            format.html { redirect_to convo_url(@convo), notice: "Message sent" }
-            format.json { render :show, status: :created, location: @convo }
+            format.html { redirect_to convo_url(@convo)}
+            format.json { render :show, status: :created, location: @convo}
+
         else
             format.html { render :new, status: :unprocessable_entity }
             format.json { render json: @convo.errors, status: :unprocessable_entity }
