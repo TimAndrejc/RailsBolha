@@ -42,12 +42,12 @@
 <h5 class="font-weight-bold mb-3 text-center text-lg-start"><%= @convo.post.title %></h5>
 <% @messages.each do |message| %>
 
-<%if(current_user.id == message.user_id)%>
+<% if(current_user.id == message.user_id) %>
     <li class="d-flex justify-content-between mb-4">
             <div class="card w-100">
               <div class="card-header d-flex justify-content-between p-3">
-                <p class="fw-bold mb-0"><%current_user.name%></p>
-                <p class="text-muted small mb-0"><i class="far fa-clock"></i><%= message.created_at %></p>
+                <p class="fw-bold mb-0">You</p>
+                <p class="text-muted small mb-0"><i class="far fa-clock"></i><%= time_ago_in_words(message.created_at) %></p>
               </div>
               <div class="card-body">
                 <p class="mb-0">
@@ -62,9 +62,9 @@
            <li class="d-flex justify-content-between mb-4">
             <img src="https://perpheads.com/data/avatars/o/6/6498.jpg?1586301375" alt="avatar"
               class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
-            <div class="card">
+            <div class="card w-100">
               <div class="card-header d-flex justify-content-between p-3">
-                <p class="fw-bold mb-0"><% message.user_id%></p>
+                <p class="fw-bold mb-0"><% user = User.find(message.user_id)%><%=  user.name %> </p>
                 <p class="text-muted small mb-0"><i class="far fa-clock"></i> <%= time_ago_in_words(message.created_at)  %> ago</p>
               </div>
               <div class="card-body">
@@ -79,7 +79,7 @@
 
           <li class="bg-white mb-3">
             <div class="form-outline">
-              <textarea class="form-control" id="textAreaExample2" rows="4"></textarea>
+            <%= form.text_field :body %>
               <label class="form-label" for="textAreaExample2">Message</label>
             </div>
           </li>
