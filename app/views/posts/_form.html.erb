@@ -1,27 +1,27 @@
-<%= form_with(model: post) do |form| %>
-  <% if post.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<div class="container my-5 col-lg-6">
+  <%= form_with(model: post) do |form| %>
+    <% if post.errors.any? %>
+      <div class="alert alert-danger" role="alert">
+        <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+        <ul>
+          <% post.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= form.label :title, class: "form-control-label" %>
+      <%= form.text_field :title, class: "form-control", placeholder: "Title", autofocus: true %>
+    </div>
 
-      <ul>
-        <% post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div class="form-group">
+      <%= form.label :body, class: "form-control-label" %>
+         <%= form.rich_text_area :body, { accept: "text" } %>
+    </div>
+
+    <div class="form-group">
+      <%= form.submit "Create", class: "btn btn-primary btn-block" %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
-    <%= form.label :body, style: "display: block" %>
-    <%= form.rich_text_area :body, { accept: "text/*,image/*" } %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
