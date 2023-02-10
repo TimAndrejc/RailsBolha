@@ -4,7 +4,7 @@ class ConvosController < ApplicationController
 
   # GET /convos or /convos.json
   def index
-    @convos = Convo.where(user: current_user).or(Convo.where(post_id: Post.where(user: current_user)))
+    @convos = Convo.where(user: current_user).or(Convo.where(post_id: Post.where(user: current_user))).order(updated_at: :desc)
   end
 
   # GET /convos/1 or /convos/1.json

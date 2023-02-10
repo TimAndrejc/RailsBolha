@@ -13,6 +13,8 @@ class MessagesController < ApplicationController
         @message.message = params[:message][:message]
         respond_to do |format|
         if @message.save
+            @convo.updated_at = @message.created_at
+            @convo.save
             format.html { redirect_to convo_url(@convo)}
             format.json { render :show, status: :created, location: @convo}
 

@@ -40,7 +40,7 @@
 <ul class="list-unstyled" style ="
                 height: 80vh;
                 overflow: auto;
-                text-align:justify;">
+                text-align:justify;" id ="chat-messages">
          
 <h5 class="font-weight-bold mb-3 text-center text-lg-start"><%= @convo.post.title %></h5>
 <% @messages.each do |message| %>
@@ -79,18 +79,25 @@
           </li>
 <%end%>
 <%end%>
+<div id="new-messages"></div>
+
          <%= form_with(model: Message.new, local: true) do |form| %>
           <li class="bg-white mb-3" >
-            <div class="form-outline" id = "message">
-            <%= form.text_field :message, class: "form-control", rows: 5 %>
+            <div class="form-outline">
+            <%= form.text_field :message, class: "form-control", rows: 5%>
               <label class="form-label" for="textAreaExample2">Message</label>
             </div>
           </li>
             <%= form.hidden_field :convo_id, value: @convo.id %>
-           <%= form.submit class: "btn btn-info btn-rounded float-end" %> 
+           <%= form.submit class: "btn btn-info btn-rounded float-end"%> 
         </ul>
         <%end%>
       </div>
+      <script>
+       if ($('#chat-messages').length) {
+  $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
+}
+      </script>
 
     </div>
 
