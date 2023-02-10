@@ -84,7 +84,7 @@
          <%= form_with(model: Message.new, local: true) do |form| %>
           <li class="bg-white mb-3" >
             <div class="form-outline">
-            <%= form.text_field :message, class: "form-control", rows: 5%>
+            <%= form.text_field :message, class: "form-control", rows: 5, id:"field" %>
               <label class="form-label" for="textAreaExample2">Message</label>
             </div>
           </li>
@@ -95,7 +95,8 @@
       </div>
       <script>
        if ($('#chat-messages').length) {
-  $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
+  $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight)
+  $('#field').focus()
 }
       </script>
 
