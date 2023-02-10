@@ -9,12 +9,14 @@ class ConvosController < ApplicationController
 
   # GET /convos/1 or /convos/1.json
   def show
-    @convos = Convo.where(user: current_user).or(Convo.where(post_id: Post.where(user: current_user)))
+    @convos = Convo.where(user: current_user).or(Convo.where(post_id: Post.where(user: current_user))).order(updated_at: :desc)
     @convo = Convo.find(params[:id])
     @post = @convo.post
     @messages = @convo.messages
     @message = Message.new
   end
+  
+  
 
   # GET /convos/new
   def new
