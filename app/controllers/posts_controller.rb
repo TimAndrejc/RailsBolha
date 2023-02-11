@@ -28,6 +28,9 @@ class PostsController < ApplicationController
     @post.user = current_user
     respond_to do |format|
       if @post.save
+        params[:post][:images].each do |image|
+          @post.images.create(image: image)
+        end
         format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
@@ -69,7 +72,7 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :body)
+      params.require(:post).permit(:title, :body, images: [])
     end
     def authorize_user!
       unless @post.user == current_user

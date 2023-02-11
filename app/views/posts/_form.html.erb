@@ -15,10 +15,58 @@
       <%= form.text_field :title, class: "form-control", placeholder: "Title", autofocus: true %>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" >
       <%= form.label :body, class: "form-control-label" %>
-         <%= form.rich_text_area :body, { accept: "text" } %>
+        <div style="text-align: left">
+         <%= form.rich_text_area :body, { accept: "text" }%>
+         </div>
     </div>
+<div class="form-group">
+  <%= form.label :images %>
+  <%= form.file_field :images, multiple: true, id: 'images-input' %>
+</div>
+
+<div class="post-images">
+  <% @post.images.each do |image| %>
+    <div class="post-image">
+      <%= image_tag image.thumb.url %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  const imagesInput = document.getElementById('images-input');
+const postImages = document.querySelector('.post-images');
+
+imagesInput.addEventListener('change', function() {
+  const files = this.files;
+     while (postImages.firstChild) {
+      postImages.removeChild(postImages.firstChild);
+    }
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const reader = new FileReader();
+    reader.addEventListener('load', function() {
+      const image = new Image();
+      image.src = this.result;
+      image.onload = function() {
+        const canvas = document.createElement('canvas');
+        canvas.width = 150;
+        canvas.height = 150;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(image, 0, 0, 150, 150);
+        const resizedImage = new Image();
+        resizedImage.src = canvas.toDataURL();
+        postImages.appendChild(resizedImage);
+      };
+    });
+    reader.readAsDataURL(file);
+  }
+});
+
+</script>
+
+
 
     <div class="form-group">
       <%= form.submit "Create", class: "btn btn-primary btn-block" %>
