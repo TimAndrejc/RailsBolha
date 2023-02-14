@@ -21,6 +21,17 @@
          <%= form.rich_text_area :body, { accept: "text" }%>
          </div>
     </div>
+    <div class="form-group">
+  <%= form.label :category_id, class: "form-control-label" %>
+  <%= form.select :category_id, options_for_select(Category.all.collect { |c| [c.name, c.id] }), { prompt: "Select a category" }, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :type_id, class: "form-control-label" %>
+  <%= form.select :type_id, options_for_select(Type.all.collect { |t| [t.name, t.id] }), { prompt: "Select a type" }, class: "form-control" %>
+</div>
+
+
 <div class="form-group">
   <%= form.label :images %>
   <%= form.file_field :images, multiple: true, id: 'images-input' %>
@@ -69,7 +80,7 @@ imagesInput.addEventListener('change', function() {
 
 
     <div class="form-group">
-      <%= form.submit "Create", class: "btn btn-primary btn-block" %>
+      <%= form.submit "Create", class: "my-btn" %>
     </div>
   <% end %>
 </div>

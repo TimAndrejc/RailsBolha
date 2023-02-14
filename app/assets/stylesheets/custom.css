@@ -223,3 +223,18 @@
     hr
     { margin: 0px; padding: 0px; border-top: 1px dashed #999; }
 /*--------------------------------------------FrameWork------------------------*/
+.my-btn {
+    background-color: #3b71ca;
+    color: #fff;
+    box-shadow: 0 4px 9px -4px #3b71ca;
+    text-transform: uppercase;
+    vertical-align: bottom;
+    border: 0;
+    box-shadow: 0 4px 9px -4px rgb(0 0 0 / 35%);
+    font-weight: 500;
+    padding: 0.625rem 1.5rem 0.5rem;
+    font-size: .75rem;
+    line-height: 1.5;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    border-radius: .25rem;
+}
