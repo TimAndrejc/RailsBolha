@@ -18,6 +18,12 @@
     <%= link_to "Back to posts", posts_path %>
 
     <%= button_to "Destroy this post", @post, method: :delete %>
+    <% if @post.sold %>
+  <%= button_to "Mark as unsold", unsold_post_path(@post), method: :put %>
+<% else %>
+  <%= button_to "Mark as sold", sold_post_path(@post), method: :put %>
+<% end %>
+
   </div>
 <%else%>
   <div>

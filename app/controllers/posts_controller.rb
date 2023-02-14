@@ -1,12 +1,12 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: %i[ index show ]
-  before_action :authorize_user!, only: %i[ edit update destroy ]
+  before_action :authorize_user!, only: %i[ edit update destroy]
   before_action :destroy_convo, only: %i[ destroy ]
   
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.where(sold: false).or(Post.where(sold: nil)).order("created_at DESC")
   end
 
   # GET /posts/1 or /posts/1.json
@@ -28,9 +28,22 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
   
     @post.user = current_user
-    @post.images.each do |image|
-      puts image
-      image.create(post_id: @post.id, data: image)
+
+    if params[:post][:images].present?
+      params[:post][:images].each do |image|
+        if image.respond_to?(:tempfile)
+          extension = File.extname(image.original_filename)
+          filename = "#{Random.uuid}#{extension}"
+          @image = Image.new
+          @image.data = filename
+          File.open(Rails.root.join('public', 'uploads', filename), 'wb') do |file|
+            file.write(image.tempfile.read)
+          end
+
+          @image.post = @post
+          @image.save
+        end
+      end
     end
 
     respond_to do |format|
@@ -56,6 +69,20 @@ class PostsController < ApplicationController
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def sold
+    @post = Post.find(params[:id])
+    @post.sold = true
+    @post.save
+    redirect_to post_url(@post)
+  end
+
+  def unsold
+    @post = Post.find(params[:id])
+    @post.sold = false
+    @post.save
+    redirect_to post_url(@post)
   end
 
   # DELETE /posts/1 or /posts/1.json
