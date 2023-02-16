@@ -53,6 +53,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
     @post.user = current_user
+
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to post_url(@post), notice: "Post was successfully updated." }
@@ -95,7 +96,7 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :body, :category_id, :type_id, allimages: [])
+      params.require(:post).permit(:title, :body, :category_id, :price, :type_id, allimages: [])
     end
     def authorize_user!
       unless @post.user == current_user

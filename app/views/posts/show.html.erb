@@ -8,6 +8,11 @@
       <%= @post.user.name %>
     </p>
   </div>
+  <div>
+    <strong>Cena:</strong>
+    <%= @post.price %> €
+  </div>
+
   <div class="images">
     <% @post.allimages.each do |image| %>
       <div class="image">

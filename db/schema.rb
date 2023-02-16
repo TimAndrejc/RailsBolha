@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_14_093003) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_16_101922) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,6 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_093003) do
     t.boolean "confirmed"
     t.bigint "category_id", null: false
     t.bigint "type_id", null: false
+    t.float "price"
     t.index ["category_id"], name: "index_posts_on_category_id"
     t.index ["type_id"], name: "index_posts_on_type_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
