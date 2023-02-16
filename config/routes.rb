@@ -13,7 +13,8 @@ Rails.application.routes.draw do
     resources :convos, only: [:create]
   end
   get '/rails/active_storage/disk/:encoded_key/*filename', to: 'active_storage/disk#show'
-  
+  get 'myposts', to: 'posts#myposts', as: 'myposts'
+
   #get '*path', to: 'errors#not_found'
 
   
