@@ -24,11 +24,11 @@
       </ul>
      
      
-      <%= form_tag(search_path, method: :get, class: 'd-flex input-group w-auto') do %>
-  <%= select_tag :category, options_for_select(Category.pluck(:name), params[:category]), prompt: 'Select Category', class: 'form-control' %>
-  <%= select_tag :post_type, options_for_select(Type.pluck(:name), params[:post_type]), prompt: 'Select Post Type', class: 'form-control' %>
-  <%= text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Type query', aria: { label: 'Search' } %>
-  <%= button_tag 'Search', class: 'my-btn', type: 'submit', data: { mbd_ripple_color: 'dark' } %>
+      <%= form_tag(posts_path, method: :get, class: 'd-flex input-group w-auto') do %>
+      <%= select_tag :category, options_for_select(Category.all.map{ |c| [c.name, c.id] }, params[:category]), prompt: 'Select Category', class: 'form-control' %>
+  <%= select_tag :type, options_for_select(Type.all.map{ |t| [t.name, t.id] }, params[:type]), prompt: 'Select Type', class: 'form-control' %>
+  <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Type query', aria: { label: 'Search' } %>
+  <%= button_tag 'Search', class: 'my-btn', type: 'submit'%>
 <% end %>
 
     </div>

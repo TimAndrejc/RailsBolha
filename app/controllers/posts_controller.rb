@@ -6,7 +6,19 @@ class PostsController < ApplicationController
   
   # GET /posts or /posts.json
   def index
-    @posts = Post.where(sold: false).or(Post.where(sold: nil)).order("created_at DESC")
+    @posts = Post.where(sold: false, confirmed: true).order("created_at DESC")
+
+    if params[:search].present?
+      @posts = @posts.where("title LIKE ?", "%#{params[:search]}%")
+    end
+
+    if params[:category].present?
+      @posts = @posts.where(category_id: params[:category])
+    end
+
+    if params[:type].present?
+      @posts = @posts.where(type_id: params[:type])
+    end
   end
 
   # GET /posts/1 or /posts/1.json

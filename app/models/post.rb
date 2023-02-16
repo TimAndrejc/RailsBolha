@@ -20,6 +20,8 @@ class Post < ApplicationRecord
           end
         end
       end
-      
+    end
+    def self.search(query)
+      where("title LIKE ?", "%#{query}%")
     end
 end
