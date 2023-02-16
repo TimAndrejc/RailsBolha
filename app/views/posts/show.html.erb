@@ -1,37 +1,39 @@
-<div style ="text-align:center">
-<div id="<%= dom_id @post %>">
-  <h1><b>
-    <%= @post.title %> 
-  </b></h1>
+<div style ="margin-top: 10px;" class=" d-flex justify-content-center">
+<div style="border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); padding: 10px;" class="col-lg-6">
+  <div id="<%= dom_id @post %>">
+    <h1><b><%= @post.title %></b></h1>
+    <p><%= @post.body %></p>
     <p>
-    <%= @post.body %>
-  </p>
-  <p>
-    <strong>Avtor:</strong>
-    <%= @post.user.name %>
-  </p>
+      <strong><i class="fas fa-user"></i> Avtor:</strong>
+      <%= @post.user.name %>
+    </p>
+  </div>
+  <div class="images">
+    <% @post.allimages.each do |image| %>
+      <div class="image">
+        <% if image.representable? %>
+        <%= image_tag image %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  
+  <% if current_user == @post.user %>
+    <div>
+      <%= link_to "<i class='fas fa-edit'></i> Edit this post".html_safe, edit_post_path(@post) %> |
+      <%= link_to "<i class='fas fa-arrow-left'></i> Back to posts".html_safe, posts_path %>
+      <%= button_to "<i class='fas fa-trash'></i> Destroy this post".html_safe, @post, method: :delete %>
+
+      <% if @post.sold %>
+        <%= button_to "<i class='fas fa-tags'></i> Mark as unsold".html_safe, unsold_post_path(@post), method: :put %>
+      <% else %>
+        <%= button_to "<i class='fas fa-tags'></i> Mark as sold".html_safe, sold_post_path(@post), method: :put %>
+      <% end %>
+    </div>
+  <% else %>
+    <div>
+      <%= button_to "<i class='fas fa-comment-alt'></i> Message this seller".html_safe, {controller: "convos", action: "create"}, method: :post, data: { turbo_method: :post }, :params => { :post_id => @post.id } %>
+    </div>
+  <% end %>
 </div>
-
-<%if(current_user == @post.user)%>
-  <div>
-    <%= link_to "Edit this post", edit_post_path(@post) %> |
-    <%= link_to "Back to posts", posts_path %>
-
-    <%= button_to "Destroy this post", @post, method: :delete %>
-    <% if @post.sold %>
-  <%= button_to "Mark as unsold", unsold_post_path(@post), method: :put %>
-<% else %>
-  <%= button_to "Mark as sold", sold_post_path(@post), method: :put %>
-<% end %>
-
-  </div>
-<%else%>
-  <div>
-<%= button_to "Message this seller", {controller: "convos", action: "create"}, method: :post, data: { turbo_method: :post }, :params => { :post_id => @post.id } %>
-
- 
-
-  </div>
-<%end%>
-
 </div>

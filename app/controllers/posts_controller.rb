@@ -38,26 +38,7 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
-  
     @post.user = current_user
-
-    if params[:post][:images].present?
-      params[:post][:images].each do |image|
-        if image.respond_to?(:tempfile)
-          extension = File.extname(image.original_filename)
-          filename = "#{Random.uuid}#{extension}"
-          @image = Image.new
-          @image.data = filename
-          File.open(Rails.root.join('public', 'uploads', filename), 'wb') do |file|
-            file.write(image.tempfile.read)
-          end
-
-          @image.post = @post
-          @image.save
-        end
-      end
-    end
-
     respond_to do |format|
       if @post.save
         format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
@@ -114,7 +95,7 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :body, :category_id, :type_id, image: [])
+      params.require(:post).permit(:title, :body, :category_id, :type_id, allimages: [])
     end
     def authorize_user!
       unless @post.user == current_user

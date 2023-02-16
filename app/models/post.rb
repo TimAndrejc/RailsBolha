@@ -10,17 +10,8 @@ class Post < ApplicationRecord
     belongs_to :type
     has_many_attached :images
     has_many :image_data, dependent: :destroy
-    after_save :save_image_data
     has_many :convo, dependent: :destroy
-    def save_image_data
-      if images.present?
-        images.each do |image|
-          if image.attached?
-            image_data.create(data: image.download)
-          end
-        end
-      end
-    end
+    has_many_attached :allimages
     def self.search(query)
       where("title LIKE ?", "%#{query}%")
     end
