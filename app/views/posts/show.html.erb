@@ -13,11 +13,11 @@
     <%= @post.price %> €
   </div>
 
-  <div class="images">
+  <div class="images d-flex">
     <% @post.allimages.each do |image| %>
-      <div class="image">
+      <div class="img-thumbnail" style="height:210px; width:210px; margin-left: 3px;">
         <% if image.representable? %>
-        <%= image_tag image %>
+        <%= image_tag image, style:"height:200px; width:200px;" %>
         <% end %>
       </div>
     <% end %>

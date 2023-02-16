@@ -20,6 +20,10 @@ class PostsController < ApplicationController
       @posts = @posts.where(type_id: params[:type])
     end
   end
+  
+  def myposts
+    @posts = Post.where(user_id: current_user.id).order("created_at DESC")
+  end
 
   # GET /posts/1 or /posts/1.json
   def show
