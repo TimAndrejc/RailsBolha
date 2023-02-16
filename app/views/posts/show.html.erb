@@ -9,8 +9,10 @@
     </p>
   </div>
   <div>
+  <% if @post.type != "Free" %>
     <strong>Cena:</strong>
     <%= @post.price %> €
+  <% end %>
   </div>
 
   <div class="images d-flex">
@@ -27,8 +29,7 @@
   <%end%>
   <% if user_signed_in? && (current_user == @post.user || current_user.admin) %>
     <div>
-      <%= link_to "<i class='fas fa-edit'></i> Edit this post".html_safe, edit_post_path(@post) %> |
-      <%= link_to "<i class='fas fa-arrow-left'></i> Back to posts".html_safe, posts_path %>
+      
       <%= button_to "<i class='fas fa-trash'></i> Destroy this post".html_safe, @post, method: :delete %>
 
       <% if @post.sold %>
@@ -36,6 +37,8 @@
       <% else %>
         <%= button_to "<i class='fas fa-tags'></i> Mark as sold".html_safe, sold_post_path(@post), method: :put %>
       <% end %>
+      <%= link_to "<i class='fas fa-edit'></i> Edit this post".html_safe, edit_post_path(@post) %> |
+      <%= link_to "<i class='fas fa-arrow-left'></i> Back to posts".html_safe, posts_path %>
     </div>
   <% else %>
     <div>
