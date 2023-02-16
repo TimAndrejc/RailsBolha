@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     member do
       put :sold
       put :unsold
+      put :confirm
     end
   end
   root "posts#index"
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
   end
   get '/rails/active_storage/disk/:encoded_key/*filename', to: 'active_storage/disk#show'
   get 'myposts', to: 'posts#myposts', as: 'myposts'
+  get 'admin', to: 'posts#admin', as: 'admin'
 
   #get '*path', to: 'errors#not_found'
 

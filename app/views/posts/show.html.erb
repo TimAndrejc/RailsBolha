@@ -22,8 +22,10 @@
       </div>
     <% end %>
   </div>
-  
-  <% if current_user == @post.user %>
+  <% if user_signed_in? && current_user.admin && @post.confirmed !=true %>
+    <%= button_to "<i class='bi bi-check'></i> Confirm".html_safe, confirm_post_path(@post), method: :put %>
+  <%end%>
+  <% if user_signed_in? && (current_user == @post.user || current_user.admin) %>
     <div>
       <%= link_to "<i class='fas fa-edit'></i> Edit this post".html_safe, edit_post_path(@post) %> |
       <%= link_to "<i class='fas fa-arrow-left'></i> Back to posts".html_safe, posts_path %>

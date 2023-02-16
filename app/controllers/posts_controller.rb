@@ -25,6 +25,11 @@ class PostsController < ApplicationController
     @posts = Post.where(user_id: current_user.id).order("created_at DESC")
   end
 
+  def admin
+    @posts = Post.where(confirmed: nil).or(Post.where(confirmed: false))
+
+  end
+
   # GET /posts/1 or /posts/1.json
   def show
     @convo = Convo.create
@@ -37,6 +42,12 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+  end
+  def confirm
+    @post = Post.find(params[:id])
+    @post.confirmed = true
+    @post.save
+    redirect_to admin_path
   end
 
   # POST /posts or /posts.json
@@ -57,7 +68,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
     @post.user = current_user
-
+    @post.confirmed = nil
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to post_url(@post), notice: "Post was successfully updated." }
@@ -103,7 +114,7 @@ class PostsController < ApplicationController
       params.require(:post).permit(:title, :body, :category_id, :price, :type_id, allimages: [])
     end
     def authorize_user!
-      unless @post.user == current_user
+      unless @post.user == current_user || current_user.admin?
         redirect_to root_path, notice: "You don't have permissions to do that."
       end
     end
