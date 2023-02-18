@@ -1,7 +1,6 @@
 class ConvosController < ApplicationController
   before_action :set_convo, only: %i[ show ]
-  before_action :authenticate_user!, except: %i[ index show ]
-
+  before_action :authenticate_user!
   # GET /convos or /convos.json
   def index
     @convos = Convo.where(user: current_user).or(Convo.where(post_id: Post.where(user: current_user))).order(updated_at: :desc)
@@ -67,6 +66,11 @@ private
 def authorize_user!
   unless @post.user == current_user
     redirect_to root_path, notice: "You don't have permissions to do that."
+  end
+end
+def authenticate_user!
+  unless current_user
+    redirect_to new_user_session_path, notice: "You must be logged in to do that."
   end
 end
 

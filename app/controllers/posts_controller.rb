@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[ index show ]
   before_action :authorize_user!, only: %i[ edit update destroy]
   before_action :destroy_convo, only: %i[ destroy ]
+  before_action :authorize_admin!, only: %i[ admin confirm ]
   
   # GET /posts or /posts.json
   def index
@@ -27,7 +28,6 @@ class PostsController < ApplicationController
 
   def admin
     @posts = Post.where(confirmed: nil).or(Post.where(confirmed: false))
-
   end
 
   # GET /posts/1 or /posts/1.json
@@ -121,5 +121,14 @@ class PostsController < ApplicationController
     def destroy_convo
       @post.convo.destroy
     end
-
+    def authenticate_user! 
+      unless user_signed_in?
+        redirect_to root_path, notice: "You need to sign in or sign up before continuing."
+      end
+    end
+    def authorize_admin!
+      unless current_user.admin?
+        redirect_to root_path, notice: "You don't have permissions to do that."
+      end
+    end 
 end
