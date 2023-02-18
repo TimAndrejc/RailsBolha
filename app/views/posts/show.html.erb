@@ -4,26 +4,40 @@
     <h1><b><%= @post.title %></b></h1>
     <p><%= @post.body %></p>
     <p>
-      <strong><i class="fas fa-user"></i> Avtor:</strong>
+      <strong><i class="fas fa-user"></i> Author:</strong>
       <%= @post.user.name %>
     </p>
   </div>
   <div>
-  <% if @post.type != "Free" %>
+  <% if @post.type.name == "Free" %>
+    <i class="fas fa-hand-holding-usd"></i> Free <br>
+  <% elsif @post.type.name == "Selling"%>
     <strong>Cena:</strong>
     <%= @post.price %> €
+  <% else %>
+    <strong>Buying</strong>
   <% end %>
   </div>
 
-  <div class="images d-flex">
+   <div class="images d-flex">
+    <% t = 0%>
     <% @post.allimages.each do |image| %>
-      <div class="img-thumbnail" style="height:210px; width:210px; margin-left: 3px;">
+      <% if( t == 3)
+        t = 0
+        %>
+        </div>
+        <div class="images d-flex">
+      <% end %>
+      <div class="img-thumbnail" style="height:210px; width:210px;">
         <% if image.representable? %>
         <%= image_tag image, style:"height:200px; width:200px;" %>
         <% end %>
       </div>
+      <% t = t + 1 %>
     <% end %>
+    <% if t > 0%>
   </div>
+  <% end %>
   <% if user_signed_in? && current_user.admin && @post.confirmed !=true %>
     <%= button_to "<i class='bi bi-check'></i> Confirm".html_safe, confirm_post_path(@post), method: :put %>
   <%end%>
