@@ -7,4 +7,8 @@ class User < ApplicationRecord
   def my_posts
     self.posts
   end
+  def self.from_google(u)
+    create_with(uid: u[:uid], name: u[:name], provider: 'google',
+                password: Devise.friendly_token[0, 20]).find_or_create_by!(email: u[:email])
+  end
 end
