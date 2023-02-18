@@ -4,11 +4,16 @@
       <li class="nav-item">
         <%= link_to 'My Posts', myposts_path , class: "nav-link #{display_active_class(myposts_path)}" %>
       </li>
+
+
+
+      <%if current_user.admin == true%>
       <li class="nav-item">
         <%= link_to 'Admin', admin_path, class: "nav-link #{display_active_class(admin_path)}" %>
-      <li class="nav-item">
-        <%= link_to 'Edit Profile', edit_user_registration_path,  class:  "nav-link #{ display_active_class( edit_user_registration_path)}" %>
       </li>
+      <%end%>
+
+
       <li class="nav-item">
         <%= link_to 'Logout', destroy_user_session_path,  class: "nav-link", data: { turbo_method: :delete } %>
       </li>
