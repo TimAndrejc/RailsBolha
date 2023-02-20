@@ -26,7 +26,7 @@
     <%= f.submit "Log in", class: "my-btn" %>
   </div>
 <% end %>
-<%= button_to  'Login with Google', user_google_oauth2_omniauth_authorize_path, method: :post, :data => {turbo: "false"}, class: "my-btn-google" %>
+<%= button_to  'Login with <i class="bi bi-google"></i>'.html_safe , user_google_oauth2_omniauth_authorize_path, method: :post, :data => {turbo: "false"}, class: "my-btn-google" %>
 
 <%= render "devise/shared/links" %>
   </div>
