@@ -1,4 +1,7 @@
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"></script>
 <div style ="margin-top: 10px;" class=" d-flex justify-content-center">
+
 <div style="border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); padding: 10px;" class="col-lg-6">
   <div id="<%= dom_id @post %>">
     <h1><b><%= @post.title %></b></h1>
@@ -18,7 +21,6 @@
     <strong>Buying</strong>
   <% end %>
   </div>
-
    <div class="images d-flex">
     <% t = 0%>
     <% @post.allimages.each do |image| %>
@@ -30,7 +32,7 @@
       <% end %>
       <div class="img-thumbnail" style="height:210px; width:210px;">
         <% if image.representable? %>
-        <%= image_tag image, style:"height:200px; width:200px;" %>
+        <%= image_tag image, style:"height:200px; width:200px; border-radius:3px; cursor:pointer", class: "gallery-item" %>
         <% end %>
       </div>
       <% t = t + 1 %>
@@ -39,25 +41,50 @@
   </div>
   <% end %>
   <% if user_signed_in? && current_user.admin && @post.confirmed !=true %>
-    <%= button_to "<i class='bi bi-check'></i> Confirm".html_safe, confirm_post_path(@post), method: :put %>
+    <%= button_to "<i class='bi bi-check'></i> Confirm".html_safe, confirm_post_path(@post), method: :put, class: "my-btn-green" %>
   <%end%>
   <% if user_signed_in? && (current_user == @post.user || current_user.admin) %>
     <div>
       
-      <%= button_to "<i class='fas fa-trash'></i> Destroy this post".html_safe, @post, method: :delete %>
+      <%= button_to "<i class='fas fa-trash'></i> Destroy this post".html_safe, @post, method: :delete, class:"my-btn-red", style: "margin-top:4px" %>
 
       <% if @post.sold %>
-        <%= button_to "<i class='fas fa-tags'></i> Mark as unsold".html_safe, unsold_post_path(@post), method: :put %>
+        <%= button_to "<i class='fas fa-tags'></i> Mark as unsold".html_safe, unsold_post_path(@post), method: :put, class: "my-btn", style: "margin-top:4px" %>
       <% else %>
-        <%= button_to "<i class='fas fa-tags'></i> Mark as sold".html_safe, sold_post_path(@post), method: :put %>
+        <%= button_to "<i class='fas fa-tags'></i> Mark as sold".html_safe, sold_post_path(@post), method: :put, class: "my-btn", style: "margin-top:4px" %>
       <% end %>
       <%= link_to "<i class='fas fa-edit'></i> Edit this post".html_safe, edit_post_path(@post) %> |
       <%= link_to "<i class='fas fa-arrow-left'></i> Back to posts".html_safe, posts_path %>
     </div>
   <% else %>
+  <br>
     <div>
-      <%= button_to "<i class='fas fa-comment-alt'></i> Message this seller".html_safe, {controller: "convos", action: "create"}, method: :post, data: { turbo_method: :post }, :params => { :post_id => @post.id } %>
+      <%= button_to "<i class='fas fa-comment-alt'></i> Message this seller".html_safe,  {controller: "convos", action: "create"}, method: :post, data: { turbo_method: :post }, :params => { :post_id => @post.id }, class: "my-btn-green" %>
     </div>
   <% end %>
 </div>
 </div>
+<div class="modal fade" id="gallery-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background:transparent">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="background:transparent">
+    <div class="modal-content" style="background:transparent; text-align:right; box-shadow:none">
+      <i class="bi fa-lg bi-x-lg"  data-bs-dismiss="modal" aria-label="Close" style ="color:#fff; cursor:pointer"></i>
+      <div class="modal-body" style="background:transparent">
+         <img src="https://i.redd.it/xq295i0sfw651.jpg" class="modal-img" style="max-width:100%; border-radius: 5px" alt="modal img">
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.addEventListener("click",function (e){
+    if(e.target.classList.contains("gallery-item")){
+          const src = e.target.getAttribute("src");
+          document.querySelector(".modal-img").src = src;
+          const myModal = new bootstrap.Modal(document.getElementById('gallery-modal'));
+          myModal.show();
+
+}
+});
+  $('#gallery-modal').on('hidden.bs.modal', function (e) {
+$('.modal-backdrop').remove();
+  });
+</script>

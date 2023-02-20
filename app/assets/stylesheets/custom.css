@@ -238,3 +238,48 @@
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     border-radius: .25rem;
 }
+.my-btn-red {
+    background-color: #ca503b;
+    color: #fff;
+    box-shadow: 0 4px 9px -4px #ca503b;
+    text-transform: uppercase;
+    vertical-align: bottom;
+    border: 0;
+    box-shadow: 0 4px 9px -4px rgb(0 0 0 / 35%);
+    font-weight: 500;
+    padding: 0.625rem 1.5rem 0.5rem;
+    font-size: .75rem;
+    line-height: 1.5;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    border-radius: .25rem;
+}
+.my-btn-green {
+    background-color: #3bca5e;
+    color: #fff;
+    box-shadow: 0 4px 9px -4px #3bca5e;
+    text-transform: uppercase;
+    vertical-align: bottom;
+    border: 0;
+    box-shadow: 0 4px 9px -4px rgb(0 0 0 / 35%);
+    font-weight: 500;
+    padding: 0.625rem 1.5rem 0.5rem;
+    font-size: .75rem;
+    line-height: 1.5;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    border-radius: .25rem;
+}
+.my-btn-google {
+    background-color: #cbc8c82a;
+    color: #000;
+    box-shadow: 0 4px 9px -4px #fff;
+    text-transform: uppercase;
+    vertical-align: bottom;
+    border: 0;
+    box-shadow: 0 4px 9px -4px rgb(0 0 0 / 35%);
+    font-weight: 500;
+    padding: 0.625rem 1.5rem 0.5rem;
+    font-size: .75rem;
+    line-height: 1.5;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    border-radius: .25rem;
+}
