@@ -59,7 +59,11 @@
   <% else %>
   <br>
     <div>
+      <% if user_signed_in? %>
       <%= button_to "<i class='fas fa-comment-alt'></i> Message this seller".html_safe,  {controller: "convos", action: "create"}, method: :post, data: { turbo_method: :post }, :params => { :post_id => @post.id }, class: "my-btn-green" %>
+      <%else%>
+      <%= link_to "<button class='my-btn-green'><i class='fas fa-comment-alt'></i> Message this seller</button>".html_safe, new_user_session_path %>
+      <%end%>
     </div>
   <% end %>
 </div>
