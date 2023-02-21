@@ -1,3 +1,4 @@
+module Helpers
 module ApplicationHelper
     def display_notice
         content_tag(:div, flash[:notice], class: "notice") if flash[:notice]
@@ -7,16 +8,17 @@ module ApplicationHelper
     end
 
 
-def display_navbar_options
-    if user_signed_in?
-        render 'loggedInNav'
-    else
-        render 'loggedOutNav'
+    def display_navbar_options
+        if user_signed_in?
+            render 'loggedInNav'
+        else
+            render 'loggedOutNav'
+        end
     end
-end
 
 
-def display_active_class(link_path)
-    "active" if current_page?(link_path)
+    def display_active_class(link_path)
+        "active" if current_page?(link_path)
+    end
 end
 end
