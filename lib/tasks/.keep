@@ -1,0 +1,1 @@
+Rails.autoloaders.main.ignore("#{config.root}/lib/tasks")
