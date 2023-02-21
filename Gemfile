@@ -50,7 +50,7 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
-
+gem 'omniauth-facebook'
 gem "figaro"
 # Use Sass to process CSS
 # gem "sassc-rails"
