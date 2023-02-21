@@ -115,7 +115,7 @@ class PostsController < ApplicationController
     end
     def authorize_user!
       unless @post.user == current_user || current_user.admin?
-        redirect_to root_path, notice: "You don't have permissions to do that."
+        redirect_to new_user_session_path, notice: "You don't have permissions to do that."
       end
     end
     def destroy_convo
@@ -123,12 +123,12 @@ class PostsController < ApplicationController
     end
     def authenticate_user! 
       unless user_signed_in?
-        redirect_to root_path, notice: "You need to sign in or sign up before continuing."
+        redirect_to new_user_session_path, notice: "You must be logged in to do that."
       end
     end
     def authorize_admin!
       unless current_user.admin?
-        redirect_to root_path, notice: "You don't have permissions to do that."
+        redirect_to new_user_session_path, notice: "You don't have permissions to do that."
       end
     end 
 end

@@ -1,6 +1,6 @@
 class ConvosController < ApplicationController
   before_action :set_convo, only: %i[ show ]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[ index show new create ]
   # GET /convos or /convos.json
   def index
     @convos = Convo.where(user: current_user).or(Convo.where(post_id: Post.where(user: current_user))).order(updated_at: :desc)
