@@ -24,15 +24,15 @@
    <div class="images d-flex">
     <% t = 0%>
     <% @post.allimages.each do |image| %>
-      <% if( t == 3)
+      <% if( t == 2)
         t = 0
         %>
         </div>
         <div class="images d-flex">
       <% end %>
-      <div class="img-thumbnail" style="height:210px; width:210px;">
+      <div class="img-thumbnail" style="height:50%; width:50%;">
         <% if image.representable? %>
-        <%= image_tag image, style:"height:200px; width:200px; border-radius:3px; cursor:pointer", class: "gallery-item" %>
+        <%= image_tag image, style:"height:100%; width:100%; border-radius:3px; cursor:pointer", class: "gallery-item" %>
         <% end %>
       </div>
       <% t = t + 1 %>
