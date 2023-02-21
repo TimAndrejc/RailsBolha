@@ -1,6 +1,8 @@
 class ConvosController < ApplicationController
   before_action :set_convo, only: %i[ show ]
-  before_action :authenticate_user!, only: %i[ index show new create ]
+  before_action :authenticate_user!, except: %i[ index show ]
+  before_action :authorize_user!, only: %i[ edit update destroy]
+
   # GET /convos or /convos.json
   def index
     @convos = Convo.where(user: current_user).or(Convo.where(post_id: Post.where(user: current_user))).order(updated_at: :desc)
@@ -21,7 +23,6 @@ class ConvosController < ApplicationController
   def new
     @convo = Convo.new
   end
-
 
   # POST /convos or /convos.json
   def create
@@ -49,8 +50,6 @@ class ConvosController < ApplicationController
     end
   end
   
-
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_convo
@@ -68,9 +67,8 @@ def authorize_user!
     redirect_to root_path, notice: "You don't have permissions to do that."
   end
 end
-def authenticate_user!
-  unless current_user
+def authenticate_user! 
+  unless user_signed_in?
     redirect_to new_user_session_path, notice: "You must be logged in to do that."
   end
 end
-

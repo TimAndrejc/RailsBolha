@@ -38,3 +38,9 @@ def message_empty
     redirect_to convo_url(@convo)
   end
 end
+def authenticate_user! 
+  unless user_signed_in?
+    flash[:alert] = "You must be logged in to do that."
+    redirect_to new_user_session_path
+  end
+end
