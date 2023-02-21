@@ -45,5 +45,18 @@
   </p>
 
   <% end %>
+  <% if @posts.count == 0 %>
+  <div class="col-lg-6 mx-auto mb-4" style ="text-align:center">
+    <ul class="list-group shadow">
+      <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+        <div class="media-body order-2 order-lg-1">
+          <h2 class="mt-0 font-weight-bold mb-2">Nič objav!</h2>
+            <h3 class="font-weight-bold my-2">
+              <a href="/posts/new">Ustvari objavo</a>
+            </h3>
+        </div>
+      </div>
+    </ul>
 </div>
+  <% end %>
 </div>
