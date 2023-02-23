@@ -34,7 +34,7 @@ Rails.application.configure do
   end
 
 
-  config.active_storage.service = :local
+  config.active_storage.service = :amazon
 
 
   # Don't care if the mailer can't send.
