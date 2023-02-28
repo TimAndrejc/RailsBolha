@@ -3,18 +3,12 @@ local:
   root: <%= Rails.root.join("storage") %>
 
 
-amazon:
-  service: S3
-  access_key_id: ENV["access_key_id"]
-  secret_access_key: ENV["secret_access_key"]
-  region: eu-central-1
-  bucket: rubybucketbolha
 
 azure:
   service: AzureStorage
-  storage_account_name: rubyproject
-  storage_access_key: WY5mVz0MULU092Xtdei2Fbi1XwaCC0KCxInu9HKi3lUshofzISVRnIbVFpmDBiCVXBygq/cH2cLL+AStw4AXnw==
-  container: picsbolhamockup
+  storage_account_name: <%= ENV['STORAGE_ACCOUNT_NAME'] %>
+  storage_access_key: <%= ENV['STORAGE_ACCESS_KEY'] %>
+  container: <%= ENV['STORAGE_CONTAINER'] %>
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
