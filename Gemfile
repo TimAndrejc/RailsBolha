@@ -24,9 +24,9 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 gem 'devise'
-gem 'azure-storage'
 gem 'image_processing'
 gem 'mini_magick'
+gem "azure-storage-blob", "~> 2.0"
 
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
 gem "cssbundling-rails"
