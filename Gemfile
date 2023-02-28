@@ -24,7 +24,7 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 gem 'devise'
-
+gem 'azure-storage'
 gem 'image_processing'
 gem 'mini_magick'
 
